@@ -8,4 +8,12 @@
 
 * [legado-s-3.23.040420](https://github.com/0x152a/legado-Build/releases/latest)
 
+<!--start-->
+> **2023/04/02**
+> 
+> * 更新cronet: 112.0.5615.47
+> * 添加文字下划线
+> * 其它一些优化
+> * 其中一些更新由 Xwite, Horis提供
+<!--end-->
 
