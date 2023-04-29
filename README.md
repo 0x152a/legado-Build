@@ -6,11 +6,11 @@
 
 最新构建下载： *上次构建于 2023-04-29*
 
-* [legado-s-3.23.040420](https://github.com/0x152a/legado-Build/releases/latest)
+* [legado-3.23.040420](https://github.com/0x152a/legado-Build/releases/latest)
 
 <!--start-->
 > **2023/04/02**
-> 
+>
 > * 更新cronet: 112.0.5615.47
 > * 添加文字下划线
 > * 其它一些优化
