@@ -1,0 +1,75 @@
+name: Android CI
+
+on:
+  workflow_dispatch:
+  watch:
+    types: [started]
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  check_release:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: check if release
+        id: check_release
+        shell: bash
+        run: |
+          source $GITHUB_WORKSPACE/check.sh
+
+      - name: Setup Java JDK
+        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
+        uses: actions/setup-java@v1.4.4
+        with:
+          java-version: 17
+
+      - name: build apk
+        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
+        shell: bash
+        run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/go.sh
+
+      - name: update readme
+        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
+        shell: bash
+        run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/update.sh
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Release
+        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: ${{ env.APP_LATEST_BODY }}
+          tag_name: ${{ env.TAG_NAME }}
+          files: ${{ env.FILES }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build_apk:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1.4.4
+        with:
+          java-version: 17
+
+      - name: build apk
+        shell: bash
+        run: source $GITHUB_WORKSPACE/go.sh
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: ${{ env.APP_NAME }}
+          path: ${{ env.OUTPUT_PATH }}$
