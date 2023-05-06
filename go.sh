@@ -30,7 +30,7 @@ set_env APK_1 $APP_BUILD_APK
 # 2
 cd $WORKSPACE
 
-set_env OUTPUT_NAME_SUFFIX "sex"
+set_env OUTPUT_NAME_SUFFIX "v2"
 set_env APP_NAME "legado-s"
 set_env APP_LAUNCH_NAME "阅读-s"
 set_env APP_WEBDAV_PATH "reading-s"
