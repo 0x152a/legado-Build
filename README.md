@@ -4,30 +4,20 @@
 
 **使用app过程中遇到问题,请到这里解决[gedoor/legado](https://github.com/gedoor/legado/issues)**
 
-最新构建下载： *上次构建于 2023-05-03*
+最新构建下载： *上次构建于 2023-05-09*
 
-* [legado-3.23.050309](https://github.com/0x152a/legado-Build/releases/latest)
+* [legado-3.23.050822](https://github.com/0x152a/legado-Build/releases/latest)
 
 <!--start-->
-> **2023/05/03**
-> * 更新cronet: 113.0.5672.61
-> * 文件类书源文件后缀识别：自动识别失败后会读取下载链接UrlOption的type字段
-> ```
-> https://www.example.com/file/ajzjxhxjncnc, {type: "txt"}
-> ```
-> * 更新cronet: 112.0.5615.135
+> **2023/05/08**
 > 
-> * 源添加jsLib字段
-> 
-> > 注入JavaScript到RhinoJs引擎中，支持两种格式  
-> > `JavaScript Code` 直接填写JavaScript片段
-> > `{"example":"https://www.example.com/js/example.js", ...}` 自动复用已经下载的js文件
-> 
-> * 导入书源菜单添加选择选中更新源,选中新增源
-> * web端迁移到vue3, 部分功能未实现
-> * 添加本地密码设置,备份涉及到的敏感信息用密码加密后再备份,如webdav密码等
-> * 修复epub章节异常分割的bug
-> * 其它一些优化
-> * 其中一些更新由 Xwite, Horis提供
+> * 更新cronet: 113.0.5672.76
+> * web: 全新传书页面 [MakeHui](https://github.com/MakeHui)；修正源编辑列表操作逻辑和多选性能
+> * 优化部分文本提示toast
+> * webView: 忽略部分网站的证书错误
+> * 备份恢复webDav: 输入密码后自动验证
+> * 换源添加加载字数选项
+> * 修复全文搜索开始bug
+> * 其中一些更新由 Xwite, Horis, Jason Yao提供
 <!--end-->
 
