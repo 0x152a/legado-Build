@@ -4,20 +4,17 @@
 
 **使用app过程中遇到问题,请到这里解决[gedoor/legado](https://github.com/gedoor/legado/issues)**
 
-最新构建下载： *上次构建于 2023-05-12*
+最新构建下载： *上次构建于 2023-05-13*
 
-* [legado-3.23.050822](https://github.com/0x152a/legado-Build/releases/latest)
+* [legado-3.23.051223](https://github.com/0x152a/legado-Build/releases/latest)
 
 <!--start-->
-> **2023/05/08**
+> **2023/05/12**
 > 
-> * 更新cronet: 113.0.5672.76
-> * web: 全新传书页面 [MakeHui](https://github.com/MakeHui)；修正源编辑列表操作逻辑和多选性能
-> * 优化部分文本提示toast
-> * webView: 忽略部分网站的证书错误
-> * 备份恢复webDav: 输入密码后自动验证
-> * 换源添加加载字数选项
-> * 修复全文搜索开始bug
-> * 其中一些更新由 Xwite, Horis, Jason Yao提供
+> * web: 修复进度同步和快捷键设置；添加间距设置；优化超长章节列表渲染；同步触发：关闭浏览器，切换应用，切换tab，返回
+> * 替换规则添加排除范围字段
+> * 迁移到Androidx Media3
+> * 其它一些优化
+> * 其中一些更新由 Xwite, Horis, ag2s20150909提供
 <!--end-->
 
