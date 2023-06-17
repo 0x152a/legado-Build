@@ -5,8 +5,15 @@ set_env() {
     export $1=$2
 }
 
-set device=${DEVICE?:main}
-set_env APP_MODE=${MODE?:normal}
+set device=$DEVICE
+if [ -z "$device" ]; then
+    set device=main
+fi
+set mode=$MODE
+if [ -z "$mode" ]; then
+    set mode=normal
+fi
+set_env APP_MODE $mode
 set_env APP_GIT_URL "https://github.com/gedoor/legado.git"
 set_env WORKSPACE $GITHUB_WORKSPACE
 # set_env WORKSPACE $(dirname $(readlink -f "$0"))
