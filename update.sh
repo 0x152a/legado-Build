@@ -9,6 +9,7 @@ GITHUB_API_LATEST="https://api.github.com/repos/gedoor/legado/releases/latest"
 
 APP_LATEST_BODY="/opt/latest.md"
 curl -s $GITHUB_API_LATEST | jq .body -r >$APP_LATEST_BODY
+cat $APP_LATEST_BODY
 sed -e 's/^/> &/' \
     -e '1i\<!--start-->' \
     -e '$a\<!--end-->' \
