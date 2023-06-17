@@ -23,7 +23,7 @@ sed "1i\ $APP_LATEST_TAG" .lastcheck -i
 
 set_env APP_LATEST_BODY $APP_LATEST_BODY
 set_env TAG_NAME "legado-$APP_LATEST_TAG"
-set_env FILES "$OUTPUT_PATH/*"
+set_env FILES "$OUTPUT_PATH/*/*.apk"
 git config --local user.email "github-actions[bot]@users.noreply.github.com"
 git config --local user.name "github-actions[bot]"
 git add .lastcheck
