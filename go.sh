@@ -7,7 +7,7 @@ set_env() {
 
 set device=${DEVICE?:main}
 set_env APP_MODE=${MODE?:normal}
-set_env APP_GIT_URL "https://ghproxy.com/https://github.com/gedoor/legado.git"
+set_env APP_GIT_URL "https://github.com/gedoor/legado.git"
 set_env WORKSPACE $GITHUB_WORKSPACE
 # set_env WORKSPACE $(dirname $(readlink -f "$0"))
 set_env OUTPUT_PATH "/opt/output"
