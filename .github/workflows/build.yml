@@ -32,6 +32,9 @@ jobs:
             matrix:
                 device: [main, v2]
                 mode: [normal, lollipop]
+        env:
+            DEVICE: ${{ matrix.device }}
+            MODE: ${{ matrix.mode }}
         steps:
             - uses: actions/checkout@v2
             - name: Setup Java JDK
@@ -51,7 +54,7 @@ jobs:
                   path: ${{ env.OUTPUT_PATH }}
 
     release:
-        needs: [check_release,build_apk]
+        needs: [check_release, build_apk]
         if: github.event_name != 'schedule' || needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
         runs-on: ubuntu-latest
         env:
