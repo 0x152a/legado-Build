@@ -10,20 +10,17 @@ on:
 jobs:
     check_release:
         runs-on: ubuntu-latest
+        outputs:
+            HAS_NEWER_VERSION: ${{ steps.check.outputs.HAS_NEWER_VERSION }}
         steps:
             - uses: actions/checkout@v2
 
             - name: check if release
-              id: check_release
+              id: check
               shell: bash
               run: |
                   source $GITHUB_WORKSPACE/check.sh
-            - name: set result
-              uses: spenserblack/actions-set-output@v1.0.0
-              id: output-step
-              with:
-                  variables: |
-                      HAS_NEWER_VERSION = ${{env.HAS_NEWER_VERSION}}
+                  echo "HAS_NEWER_VERSION=$HAS_NEWER_VERSION" >> "$GITHUB_OUTPUT"
 
     build_apk:
         needs: check_release
