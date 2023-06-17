@@ -27,7 +27,7 @@ main)
     set_env APP_WEBDAV_PATH "reading"
     set_env APP_PAKAGE_NAME_SUFFIX "releaseX"
     set_env APP_NAME "legado"
-    set_env APP_WORKSPACE "/opt/$APP_NAME"
+    set_env APP_WORKSPACE "/opt/$APP_NAME-$APP_MODE"
     echo build for main device
     ;;
 
@@ -37,7 +37,7 @@ v2)
     set_env APP_WEBDAV_PATH "reading-s"
     set_env APP_PAKAGE_NAME_SUFFIX "releaseS"
     set_env APP_NAME "legado-s"
-    set_env APP_WORKSPACE "/opt/$APP_NAME"
+    set_env APP_WORKSPACE "/opt/$APP_NAME-$APP_MODE"
     echo build for v2 device
     ;;
 
