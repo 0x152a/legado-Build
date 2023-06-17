@@ -51,7 +51,7 @@ jobs:
                   path: ${{ env.OUTPUT_PATH }}
 
     release:
-        needs: check_release
+        needs: [check_release,build_apk]
         if: github.event_name != 'schedule' || needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
         runs-on: ubuntu-latest
         env:
