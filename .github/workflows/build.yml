@@ -58,6 +58,8 @@ jobs:
             OUTPUT_PATH: apk
             APP_LATEST_TAG: ${{ needs.check_release.outputs.APP_LATEST_TAG}}
         steps:
+            - uses: actions/checkout@v2
+
             - name: Download artifacts
               id: download
               uses: actions/download-artifact@v3
