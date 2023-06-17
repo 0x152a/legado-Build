@@ -1,52 +1,64 @@
 name: Android CI
 
 on:
-  workflow_dispatch:
-  watch:
-    types: [started]
-  schedule:
-    - cron: "0 */6 * * *"
+    workflow_dispatch:
+    watch:
+        types: [started]
+    schedule:
+        - cron: "0 */6 * * *"
 
 jobs:
-  check_release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+    check_release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
 
-      - name: check if release
-        id: check_release
-        shell: bash
-        run: |
-          source $GITHUB_WORKSPACE/check.sh
+            - name: check if release
+              id: check_release
+              shell: bash
+              run: |
+                  source $GITHUB_WORKSPACE/check.sh
+            - name: set result
+              uses: spenserblack/actions-set-output@<commit-ish>
+              id: output-step
+              with:
+                  variables: |
+                      HAS_NEWER_VERSION = ${{env.HAS_NEWER_VERSION}}
 
-      - name: Setup Java JDK
-        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
-        uses: actions/setup-java@v1.4.4
-        with:
-          java-version: 17
+    build_apk:
+        needs: check_release
+        if: needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                device: [main, v2]
+                mode: [normal, lollipop]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Java JDK
+              uses: actions/setup-java@v1.4.4
+              with:
+                  java-version: 17
 
-      - name: build apk
-        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
-        shell: bash
-        run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/go.sh
+            - name: build apk
+              shell: bash
+              run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/go.sh
 
-      - name: update readme
-        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
-        shell: bash
-        run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/update.sh
+            - name: update readme
+              shell: bash
+              run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/update.sh
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+            - name: Push changes
+              uses: ad-m/github-push-action@master
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: ${{ github.ref }}
 
-      - name: Release
-        if: ${{ env.HAS_NEWER_VERSION == 'TRUE' }}
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: ${{ env.APP_LATEST_BODY }}
-          tag_name: ${{ env.TAG_NAME }}
-          files: ${{ env.FILES }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  body_path: ${{ env.APP_LATEST_BODY }}
+                  tag_name: ${{ env.TAG_NAME }}
+                  files: ${{ env.FILES }}

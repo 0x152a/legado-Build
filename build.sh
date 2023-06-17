@@ -16,15 +16,26 @@ git clone $APP_GIT_URL $APP_WORKSPACE
 cd $APP_WORKSPACE
 LatestTag=$(git describe --tags $(git rev-list --tags --max-count=1))
 set_env APP_LATEST_TAG $LatestTag
-set_env APP_OUTPUT_NAME "$APP_NAME-$LatestTag-$OUTPUT_NAME_SUFFIX"
+set_env APP_OUTPUT_NAME "$APP_NAME-$APP_MODE-$LatestTag-$OUTPUT_NAME_SUFFIX"
 
 source $WORKSPACE/customise.sh
 echo Completed Customise
-
-# build apk with gradle
 cd $APP_WORKSPACE
-chmod +x gradlew
-./gradlew assembleAppRelease --build-cache --parallel
+
+case "${APP_MODE}" in
+normal)
+    echo "start normal build"
+    chmod +x gradlew
+    ./gradlew assembleAppRelease --build-cache --parallel --daemon --warning-mode all
+    ;;
+
+lollipop)
+    echo "start lollipop build"
+    chmod +x gradlew
+    ./gradlew assemblelollipoprelease --build-cache --parallel --daemon --warning-mode all
+    ;;
+
+esac
 
 while :; do
     sleep 1
