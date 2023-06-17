@@ -12,6 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
             HAS_NEWER_VERSION: ${{ steps.check.outputs.HAS_NEWER_VERSION }}
+            APP_LATEST_TAG: ${{ steps.check.outputs.APP_LATEST_TAG }}
         steps:
             - uses: actions/checkout@v2
 
@@ -21,10 +22,11 @@ jobs:
               run: |
                   source $GITHUB_WORKSPACE/check.sh
                   echo "HAS_NEWER_VERSION=$HAS_NEWER_VERSION" >> "$GITHUB_OUTPUT"
+                  echo "APP_LATEST_TAG=$APP_LATEST_TAG" >> "$GITHUB_OUTPUT"
 
     build_apk:
         needs: check_release
-        if:  github.event_name != 'schedule' || needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
+        if: github.event_name != 'schedule' || needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -40,6 +42,27 @@ jobs:
             - name: build apk
               shell: bash
               run: cd $GITHUB_WORKSPACE; source $GITHUB_WORKSPACE/go.sh
+
+            - name: upload artifact
+              uses: actions/upload-artifact@v2
+              if: success()
+              with:
+                  name: ${{ env.APP_OUTPUT_NAME }}
+                  path: ${{ env.OUTPUT_PATH }}
+
+    release:
+        needs: check_release
+        if: github.event_name != 'schedule' || needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
+        runs-on: ubuntu-latest
+        env:
+            OUTPUT_PATH: apk
+            APP_LATEST_TAG: ${{ needs.check_release.outputs.APP_LATEST_TAG}}
+        steps:
+            - name: Download artifacts
+              id: download
+              uses: actions/download-artifact@v3
+              with:
+                  path: ${{env.OUTPUT_PATH}}/
 
             - name: update readme
               shell: bash

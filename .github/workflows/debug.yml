@@ -29,5 +29,5 @@ jobs:
               uses: actions/upload-artifact@v2
               if: success()
               with:
-                  name: ${{ env.APP_NAME }}
+                  name: ${{ env.APP_OUTPUT_NAME }}
                   path: ${{ env.OUTPUT_PATH }}
