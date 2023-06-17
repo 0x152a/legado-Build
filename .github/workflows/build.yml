@@ -27,7 +27,7 @@ jobs:
 
     build_apk:
         needs: check_release
-        if: needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
+        if:  github.event_name != 'schedule' || needs.check_release.outputs.HAS_NEWER_VERSION == 'TRUE'
         runs-on: ubuntu-latest
         strategy:
             matrix:
