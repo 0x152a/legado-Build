@@ -1,4 +1,4 @@
-## legado阅读3.0自动构建
+## legado阅读3.0自动构建[![Release Build](https://github.com/0x152a/legado-Build/workflows/Build/badge.svg)](https://github.com/0x152a/legado-Build/actions/workflows/build.yml)
 
 自用，默认从最新发布的tag构建，每次构建会自动清空18PlusList.txt
 
