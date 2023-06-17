@@ -5,13 +5,13 @@ set_env() {
     export $1=$2
 }
 
-set device=$DEVICE
+device=$DEVICE
 if [ -z "$device" ]; then
-    set device=main
+    device=main
 fi
-set mode=$MODE
+mode=$MODE
 if [ -z "$mode" ]; then
-    set mode=normal
+    mode=normal
 fi
 set_env APP_MODE $mode
 set_env APP_GIT_URL "https://github.com/gedoor/legado.git"
