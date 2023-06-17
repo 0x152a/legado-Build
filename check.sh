@@ -15,7 +15,7 @@ set_env OUTPUT_NAME_SUFFIX $OUTPUT_NAME_SUFFIX-$LatestTag
 echo LastTag is $LastTag, now is $APP_LATEST_TAG
 
 version_gt() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; }
-if [ -z "$LastTag" -o (version_gt $APP_LATEST_TAG $LastTag) ]; then
+if [ -z "$LastTag" -o $(version_gt $APP_LATEST_TAG $LastTag) ]; then
     set_env HAS_NEWER_VERSION "TRUE"
     echo Found newer version: $APP_LATEST_TAG
 else
