@@ -19,7 +19,7 @@ jobs:
               run: |
                   source $GITHUB_WORKSPACE/check.sh
             - name: set result
-              uses: spenserblack/actions-set-output@<commit-ish>
+              uses: spenserblack/actions-set-output@v1.0.0
               id: output-step
               with:
                   variables: |
