@@ -20,7 +20,7 @@ sed -e '/<!--start-->/,/<!--end-->/d' \
     -e "7c\ 最新构建下载： *上次构建于 $APP_LATEST_CHECK*" \
     -e "9c\ * [legado-$APP_LATEST_TAG](https://github.com/0x152a/legado-Build/releases/latest)" \
     README.md -i
-sed "1i\ $APP_LATEST_TAG" .lastcheck -i
+sed -i "1i$APP_LATEST_TAG" .lastcheck
 
 set_env APP_LATEST_BODY $APP_LATEST_BODY
 set_env TAG_NAME "legado-$APP_LATEST_TAG"
