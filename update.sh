@@ -17,7 +17,7 @@ sed -e 's/^/> &/' \
     $APP_LATEST_BODY -i
 sed -e '/<!--start-->/,/<!--end-->/d' \
     -e "10r\ $APP_LATEST_BODY" \
-    -e "7c\ 最新构建下载： *上次构建于 $APP_LATEST_CHECK*" \
+    -e "7c\ 最新构建下载： *上次构建于 $(date -u -d"+8 hour" "+%Y-%m-%d %H:%M:%S")*" \
     -e "9c\ * [legado-$APP_LATEST_TAG](https://github.com/0x152a/legado-Build/releases/latest)" \
     README.md -i
 sed -i "1i$APP_LATEST_TAG" .lastcheck
