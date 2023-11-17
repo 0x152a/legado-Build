@@ -6,6 +6,6 @@
 
  最新构建下载： *上次构建于 *
 
- * [legado-3.23.073011](https://github.com/0x152a/legado-Build/releases/latest)
+ * [legado-3.23.110211](https://github.com/0x152a/legado-Build/releases/latest)
 
 
