@@ -15,10 +15,28 @@ set_env OUTPUT_NAME_SUFFIX $OUTPUT_NAME_SUFFIX-$LatestTag
 echo LastTag is $LastTag, now is $APP_LATEST_TAG
 
 version_gt() {
-    local v1=$(echo "$1" | sed 's/^0*//')  # Remove leading zeros
-    local v2=$(echo "$2" | sed 's/^0*//')
-    test "$(echo "$v1\n$v2" | sort -V | head -n 1)" != "$v1"
+    if [[ "$1" == "$2" ]]; then
+        return 1
+    fi
+    local IFS=.
+    local i v1=($1) v2=($2)
+    
+    # Fill empty fields in v1 with zeros
+    for ((i=${#v1[@]}; i<${#v2[@]}; i++)); do
+        v1[i]=0
+    done
+
+    for ((i=0; i<${#v1[@]}; i++)); do
+        if ((10#${v1[i]} > 10#${v2[i]})); then
+            return 0
+        elif ((10#${v1[i]} < 10#${v2[i]})); then
+            return 1
+        fi
+    done
+
+    return 1
 }
+
 if [ -z "$LastTag" -o $(version_gt $APP_LATEST_TAG $LastTag) ]; then
     set_env HAS_NEWER_VERSION "TRUE"
     echo Found newer version: $APP_LATEST_TAG
