@@ -4,7 +4,7 @@
 
 **使用app过程中遇到问题,请到这里解决[gedoor/legado](https://github.com/gedoor/legado/issues)**
 
- 最新构建下载： *上次构建于 2023-11-17 21:30:30*
+ 最新构建下载： *上次构建于 2024-06-30 04:30:24*
 
  * [legado-3.23.110211](https://github.com/0x152a/legado-Build/releases/latest)
 
